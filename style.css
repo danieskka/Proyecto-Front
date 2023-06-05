@@ -1,3 +1,19 @@
 * {
     background-color: blanchedalmond;
 }
+
+#character_cont {
+    display: flex;
+  }
+  
+.character_card {
+    flex: 0 0 auto;
+    width: 300px;
+    padding: 20px;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-right: 20px;
+  }
+  
+  
