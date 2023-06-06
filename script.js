@@ -1,3 +1,5 @@
+
+// funcion fetch a la API de los personajes
 async function getCharacters () {
     try { 
         let response = await fetch ('https://hp-api.onrender.com/api/characters');
@@ -8,7 +10,9 @@ async function getCharacters () {
     }
 }
 
-document.querySelector(".character_card").addEventListener('submit', async function (event) {
+// logica para pintar tarjeta de personaje por buscador
+if(document.querySelector('.character_card')){
+  document.querySelector('.character_card').addEventListener('submit', async function (event) {
   event.preventDefault();
 
   const input = this.querySelector('input[type="text"]');
@@ -60,47 +64,85 @@ document.querySelector(".character_card").addEventListener('submit', async funct
     console.log(`ERROR! -> ${error}`);
   }
 });
+}
 
-const form = document.querySelector('.character_card');
-const container = document.getElementById('character_cont');
+// FIREBASE:
 
-// getCharacters().then(data => {
-//     const container = document.getElementById('character_cont');
-//     let count = 0; // Variable de control para contar las tarjetas creadas
-  
-//     data.forEach(character => {
-//       if (count >= 1) {
-//         return; // Salir del bucle si se alcanza el límite de 3 tarjetas
-//       }
-  
-//       // Crear elementos HTML para cada tarjeta
-//       const card = document.createElement('div')
-//       card.classList.add("character_card");
+const firebaseConfig = {
+  apiKey: "AIzaSyCkEtB9DIiyIALls6s4BqMrq8LArU8ZRfM",
+  authDomain: "harry-potter-proyect.firebaseapp.com",
+  projectId: "harry-potter-proyect",
+  storageBucket: "harry-potter-proyect.appspot.com",
+  messagingSenderId: "703481783201",
+  appId: "1:703481783201:web:028ddf741e3f92155921e0"
+};
+
+firebase.initializeApp(firebaseConfig);
+
+const db = firebase.firestore();
+
+// Guardar registro de registro (firestore) y auth(authentication)
+const signForm = document.getElementById('signForm');
+
+if(document.getElementById('signForm')){
+signForm.addEventListener('submit', function (event) {
+  event.preventDefault();
+
+  const email = signForm.querySelector('input[type="text"]').value;
+  const password = signForm.querySelector('input[type="password"]').value;
+
+  firebase.auth().createUserWithEmailAndPassword(email, password)
+  .then((userCredential) => {
       
-//       const image = document.createElement('img');
-//       const name = document.createElement('h2');
-//       const species = document.createElement('p');
-//       const ancestry = document.createElement('p');
-//       const house = document.createElement('p');
-  
-//       // Establecer atributos y contenido para cada tarjeta
-//       image.src = character.image;
-//       name.textContent = character.name;
-//       species.textContent = `Species: ${character.species}`;
-//       ancestry.textContent = `Ancestry: ${character.ancestry}`;
-//       house.textContent = `House: ${character.house}`;
-  
-//       // Agregar elementos a cada tarjeta
-//       card.appendChild(image);
-//       card.appendChild(name);
-//       card.appendChild(species);
-//       card.appendChild(ancestry);
-//       card.appendChild(house);
-  
-//       // Agregar cada tarjeta al contenedor en el DOM
-//       container.appendChild(card);
-  
-//       count++; // Incrementar la variable de control de tarjetas creadas
-//     });
-//   });
-  
+      const user = userCredential.user;
+      const userId = user.uid; 
+
+  firebase.firestore().collection('usuarios').doc(userId).set({
+  email: email
+  })
+  .then(() => {
+    console.log('Datos guardados en Firestore');
+  })
+  .catch((error) => {
+    console.log('Error al guardar datos en Firestore:', error);
+  });
+    })
+.catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      console.log(errorCode, errorMessage);
+    });
+});
+}
+const loginForm = document.querySelector('#loginForm');
+
+if(document.querySelector('#loginForm')){
+loginForm.addEventListener('submit', function (event) {
+  event.preventDefault(); 
+ 
+const email = loginForm.querySelector('#loginEmail').value;
+const password = loginForm.querySelector('#loginPass').value;
+
+firebase.auth().signInWithEmailAndPassword(email, password)
+  .then((userCredential) => {
+      const user = userCredential.user;
+  })
+  .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      console.log(errorCode, errorMessage);
+  });
+});
+
+firebase.auth().onAuthStateChanged(function (user) {
+  if (user) {
+    // El usuario está registrado y ha iniciado sesión
+    // Puedes redirigir al usuario a otra página o realizar acciones adicionales
+    console.log('Usuario logueado:', user.email);
+  } else {
+    // El usuario no ha iniciado sesión o ha cerrado sesión
+    // Puedes mostrar el formulario de inicio de sesión o realizar otras acciones
+    console.log('Usuario no logueado');
+  }
+})
+};

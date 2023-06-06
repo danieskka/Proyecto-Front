@@ -15,7 +15,7 @@
     <main>
 
         <section>
-            <form>
+            <form id="signForm">
                 <div>
                     <label>Introduzca un email valido</label>
                     <input type="text">
@@ -27,7 +27,22 @@
                 <button type="submit"> Click aqui para Registrarse</button>
                 
             </form>
-            <button type="submit">CLICK AQUI PARA CONTINUAR SIN LOGIN</button>
+        </section>
+
+        <section>
+            <form id="loginForm">
+                <div>
+                    <label>Introduzca su email valido</label>
+                    <input type="text" id="loginEmail">
+                </div>
+                <div>
+                    <label>Introduzca su contraseña</label>
+                    <input type="password" id="loginPass">
+                </div>
+                <button type="submit"> Iniciar Sesión</button>
+                
+            </form>
+            <button type="submit">CLICK AQUI PARA CONTINUAR SIN REGISTRO O LOGIN</button>
         </section>
 
     </main>
@@ -40,6 +55,9 @@
 
     </footer>
 
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
 <script src="script.js"></script>
 </body>
 </html>
