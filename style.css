@@ -1,5 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Pangolin&family=Permanent+Marker&family=Secular+One&family=Yanone+Kaffeesatz:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Pangolin&family=Secular+One&family=Yanone+Kaffeesatz:wght@500&display=swap');
+
 * {
-    background-color: blanchedalmond;
+  font-family: 'Secular One', sans-serif;
 }
 
 body {
@@ -18,20 +21,14 @@ body {
   background-size: cover;
 }
 
-.content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 20px;
-  flex-grow: 1;
-  background-color: white;
+h1 {
+  font-family: 'Permanent Marker', cursive;
 }
 
 header {
   text-align: center;
   margin-top: 20px;
-  background-color: #4caf5000;
+  background-color: #4caf50a3;
   padding: 10px;
 }
 
@@ -59,6 +56,7 @@ form {
   align-items: center;
   justify-content: center;
   margin-bottom: 20px;
+  background-color: #f5f4b3c4;
 }
 
 form div {
@@ -100,12 +98,22 @@ footer nav {
 footer nav a {
   margin: 0 5px;
   text-decoration: none;
-  color: #4CAF50;
+  color: #000700;
 }
 
 #character_cont {
     display: flex;
   }
+
+.content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    flex-grow: 1;
+    background-color: white;
+}
   
 .character_card {
     flex: 0 0 auto;
@@ -114,7 +122,6 @@ footer nav a {
     background-color: #f0f0f0;
     border: 1px solid #ccc;
     border-radius: 5px;
-    margin-right: 20px;
   }
   
 
