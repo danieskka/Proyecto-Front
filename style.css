@@ -122,8 +122,12 @@ footer nav a {
     background-color: #f0f0f0;
     border: 1px solid #ccc;
     border-radius: 5px;
-  }
-  
+}
+ 
+.character_card img {
+    max-width: 100%;
+    height: auto;
+}
 
 /* Media queries */
 
