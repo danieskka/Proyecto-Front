@@ -11,6 +11,8 @@ async function getCharacters () {
 }
 
 // logica para pintar tarjeta de personaje por buscador
+const form = document.querySelector('.character_card');
+
 if(document.querySelector('.character_card')){
   document.querySelector('.character_card').addEventListener('submit', async function (event) {
   event.preventDefault();
@@ -136,13 +138,52 @@ firebase.auth().signInWithEmailAndPassword(email, password)
 
 firebase.auth().onAuthStateChanged(function (user) {
   if (user) {
-    // El usuario está registrado y ha iniciado sesión
-    // Puedes redirigir al usuario a otra página o realizar acciones adicionales
+    window.location.href = "main.html"
     console.log('Usuario logueado:', user.email);
   } else {
-    // El usuario no ha iniciado sesión o ha cerrado sesión
-    // Puedes mostrar el formulario de inicio de sesión o realizar otras acciones
     console.log('Usuario no logueado');
   }
 })
+};
+
+const logoutButton = document.getElementById('logoutButton');
+
+if(document.getElementById('logoutButton')){
+logoutButton.addEventListener('click', function() {
+  firebase.auth().signOut()
+    .then(() => {
+      console.log('Usuario desconectado');
+      window.location.href = "index.html"; // Redirige al usuario a la página de inicio de sesión
+    })
+    .catch((error) => {
+      console.log('Error al cerrar sesión:', error);
+    });
+});
+};
+const contButton = document.getElementById('continueButton');
+
+if(document.getElementById('continueButton')){
+contButton.addEventListener('click', function() {
+  window.location.href= "main.html";
+});
+};
+
+const provider = new firebase.auth.GoogleAuthProvider();
+provider.addScope('profile');
+provider.addScope('email');
+
+const googleSignInButton = document.getElementById('googleSignInButton');
+
+if(document.getElementById('googleSignInButton')) {
+googleSignInButton.addEventListener('click', function() {
+ 
+  firebase.auth().signInWithPopup(provider)
+    .then((result) => {
+      window.location.href = "main.html";
+      console.log('Inicio de sesión con Google exitoso');
+    })
+    .catch((error) => {
+      console.log('Error en el inicio de sesión con Google:', error);
+    });
+});
 };

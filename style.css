@@ -27,9 +27,12 @@ h1 {
 
 header {
   text-align: center;
-  margin-top: 20px;
-  background-color: #4caf50a3;
   padding: 10px;
+}
+
+header img {
+  max-width: 100%;
+  height: auto;
 }
 
 footer {
@@ -42,10 +45,6 @@ footer {
 
 
 main {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
   margin-bottom: 20px;
   flex-grow: 1;
 }
@@ -56,7 +55,7 @@ form {
   align-items: center;
   justify-content: center;
   margin-bottom: 20px;
-  background-color: #f5f4b3c4;
+  background-color: #f5f4b38f;
 }
 
 form div {
@@ -75,10 +74,11 @@ input {
 
 button {
   padding: 10px;
-  background-color: #4CAF50;
+  background-color: #5f6368;
   color: white;
   border: none;
   cursor: pointer;
+  font-weight: lighter;
 }
 
 button[type="submit"] {
@@ -131,6 +131,25 @@ footer nav a {
 .character_card img {
     max-width: 100%;
     height: auto;
+}
+
+#googleSignInButton {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  color: #757575;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  margin-top: 20px;
+}
+
+#googleSignInButton img {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
 }
 
 /* Media queries */

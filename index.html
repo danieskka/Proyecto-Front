@@ -9,7 +9,7 @@
 </head>
 <body class="content">
     <header>
-        <h1>Bienvenidos al Sitio Web para fans de HARRY POTTER</h1>
+        <h1><img src="https://upload.wikimedia.org/wikipedia/commons/6/6e/Harry_Potter_wordmark.svg"></h1>
     </header>
 
     <main>
@@ -40,17 +40,23 @@
                     <input type="password" id="loginPass">
                 </div>
                 <button type="submit"> Iniciar Sesión</button>
-                
+                <button id="googleSignInButton" type="button">
+                    <img src="https://rotulosmatesanz.com/wp-content/uploads/2017/09/2000px-Google_G_Logo.svg_.png" alt="Google Logo">
+                    Iniciar sesión con Google
+                </button>
             </form>
-            <button type="submit">CLICK AQUI PARA CONTINUAR SIN REGISTRO O LOGIN</button>
+        </section>
+        <section>
+            <button type="submit" id="continueButton">CLICK AQUI PARA CONTINUAR SIN REGISTRO O LOGIN</button>
         </section>
 
     </main>
 
     <footer>
         <nav>
-            <a href="main.html">Main</a>
-            <a href="information.html">Information</a>
+            <a href="main.html">Buscador Personajes</a>
+            <a href="information.html">Puntos de Interés</a>
+            <button id="logoutButton">Cerrar sesión</button>
         </nav>
 
     </footer>
@@ -58,6 +64,7 @@
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+<script src="https://accounts.google.com/gsi/client" async defer></script>
 <script src="script.js"></script>
 </body>
 </html>
