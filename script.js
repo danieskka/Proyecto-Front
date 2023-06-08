@@ -51,14 +51,31 @@ if(document.querySelector('.character_card')){
 
       container.appendChild(card);
 
+      // boton para volver a buscar
       const searchAgainButton = document.createElement('button');
       searchAgainButton.textContent = 'Buscar de nuevo';
+      card.appendChild(searchAgainButton);
       searchAgainButton.addEventListener('click', function() {
           container.innerHTML = "";
           container.appendChild(form);
       });
 
-      container.appendChild(searchAgainButton);
+      // boton para añadir a favoritos
+      const addToFavoritesButton = document.createElement('button');
+      addToFavoritesButton.textContent = 'Agregar a favoritos';
+      if (firebase.auth().currentUser){
+        card.appendChild(addToFavoritesButton);
+      }
+      addToFavoritesButton.addEventListener('click', function() {
+          const user = firebase.auth().currentUser.uid;
+      if (user) {
+          const userId = user.uid;
+          addCharacterToFavorites(findCharacter);
+      } else {
+            console.log('User not found');
+      }
+});
+      
     } else {
       alert('Personaje no encontrado');
     }
@@ -83,7 +100,7 @@ firebase.initializeApp(firebaseConfig);
 
 const db = firebase.firestore();
 
-// Guardar registro de registro (firestore) y auth(authentication)
+// Sign in en Authentication y firestore
 const signForm = document.getElementById('signForm');
 
 if(document.getElementById('signForm')){
@@ -100,7 +117,8 @@ signForm.addEventListener('submit', function (event) {
       const userId = user.uid; 
 
   firebase.firestore().collection('usuarios').doc(userId).set({
-  email: email
+  email: email,
+  characters: []
   })
   .then(() => {
     console.log('Datos guardados en Firestore');
@@ -116,6 +134,10 @@ signForm.addEventListener('submit', function (event) {
     });
 });
 }
+
+let userId = null;
+
+// Log in
 const loginForm = document.querySelector('#loginForm');
 
 if(document.querySelector('#loginForm')){
@@ -128,6 +150,7 @@ const password = loginForm.querySelector('#loginPass').value;
 firebase.auth().signInWithEmailAndPassword(email, password)
   .then((userCredential) => {
       const user = userCredential.user;
+      userId = user.uid;
   })
   .catch((error) => {
       const errorCode = error.code;
@@ -146,6 +169,7 @@ firebase.auth().onAuthStateChanged(function (user) {
 })
 };
 
+// Boton de Cerrar Sesion
 const logoutButton = document.getElementById('logoutButton');
 
 if(document.getElementById('logoutButton')){
@@ -153,13 +177,15 @@ logoutButton.addEventListener('click', function() {
   firebase.auth().signOut()
     .then(() => {
       console.log('Usuario desconectado');
-      window.location.href = "index.html"; // Redirige al usuario a la página de inicio de sesión
+      window.location.href = "index.html"; // Redirige a página de inicio de sesión
     })
     .catch((error) => {
       console.log('Error al cerrar sesión:', error);
     });
 });
 };
+
+// Boton de continuar sin registro/login
 const contButton = document.getElementById('continueButton');
 
 if(document.getElementById('continueButton')){
@@ -168,6 +194,7 @@ contButton.addEventListener('click', function() {
 });
 };
 
+// Google Log In
 const provider = new firebase.auth.GoogleAuthProvider();
 provider.addScope('profile');
 provider.addScope('email');
@@ -187,3 +214,96 @@ googleSignInButton.addEventListener('click', function() {
     });
 });
 };
+
+// Guardar el personaje en la colección de favoritos de Firestore
+function addCharacterToFavorites(character) {
+  if (userId) {
+    db.collection('usuarios')
+      .doc(userId)
+      .update({
+        favoritos: firebase.firestore.FieldValue.arrayUnion(character)
+      })
+      .then(() => {
+        console.log('Personaje agregado a favoritos');
+      })
+      .catch((error) => {
+        console.log('Error al agregar personaje a favoritos:', error);
+      });
+  }
+}
+
+// Agregar coleccion favoritos a Firestore y guardar los personajes
+function getFavoriteCharacters() {
+  if (userId) {
+    return db
+      .collection('usuarios')
+      .doc(userId)
+      .get()
+      .then((doc) => {
+        if (doc.exists) {
+          const userData = doc.data();
+          if (userData && userData.favoritos) {
+            return userData.favoritos;
+          }
+        }
+        return [];
+      })
+      .catch((error) => {
+        console.log('Error al obtener personajes favoritos:', error);
+      });
+  } else {
+    return Promise.resolve([]); // Usuario no autenticado, retornar un array vacío
+  }
+}
+
+//Leaflet Map
+
+if (window.location.pathname.includes("information.html") && "geolocation" in navigator) {
+
+  navigator.geolocation.getCurrentPosition(position => {
+      
+      let map = L.map('map').setView([34.048907, -118.227759], 3);
+      
+      L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19,
+      attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+})      .addTo(map);
+
+      const interestPoints = {
+        harryStatue: {
+          coord: [51.51083418657746, -0.13033325949331298],
+          image: "https://i.insider.com/5f7f3bee282c500018c79618?width=700",
+          description: "You can now visit in London the Harry Potter Statue",
+          },
+        warnerStudioLondon: {
+          coord: [51.69035944585027, -0.4179959806349483],
+          image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSmIjxVMQCYJrRALqZyKehwgrHhK8119LyPBQ&usqp=CAU",
+          description: "Discover all the tematics of Harry Potter's Saga in this tour located in London",
+          },
+        platFormNine: {
+          coord: [51.5320950588603, -0.12408096540298498],
+          image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRyvBahCEabHKQZTgG63qwFOubMXeCLG0Cwiw&usqp=CAU",
+          description: "An exciting destination for every Harry Potter fan, the Harry Potter Shop at Platform 9 ¾ is located in London King's Cross Station"
+        },
+        wizardingWorld: {
+          coord: [28.47981435567676, -81.46932057766284],
+          image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRAVc6S0KvWo7aaQjKL9RFjaT4YzLY3Epo6pg&usqp=CAU",
+          description: "Wizarding World is the new official home of Harry Potter & Fantastic Beasts located in Orlando, USA"
+        },
+        stealFalls: {
+          coord: [56.77052658500331, -4.979620763098782],
+          image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRB59HkfWnwFVE2a3Df3KF_UigSyqhlhkgDmA&usqp=CAU",
+          description: "This gorgeous waterfall is the second-highest of its kind in Britain, located in Scotland. It was also the location of the Triwizard Tournament where Harry battled the dragon"
+        },
+      }
+
+      for (const point in interestPoints) {
+        const {coord, image, description} = interestPoints[point];
+        const marker = L.marker(coord).addTo(map);
+        marker.bindPopup(`<b>${point}</b><br><img class="mapImg" src="${image}" alt="${point}"/><br>${description}`).openPopup()
+        
+      }
+});
+} else {
+console.warn("Tu navegador no soporta Geolocalización!! ");
+}
