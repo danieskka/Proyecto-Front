@@ -140,6 +140,7 @@ footer nav a {
 
 #character_cont {
     display: flex;
+    flex-direction: column;
   }
 
 .content {

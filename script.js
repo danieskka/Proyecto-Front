@@ -26,7 +26,6 @@ if(document.querySelector('.character_card')){
 
     if (findCharacter) {
       let container = document.getElementById('character_cont');
-      container.innerHTML = '';
 
       const card = document.createElement('div');
       card.classList.add("character_card");
@@ -50,12 +49,9 @@ if(document.querySelector('.character_card')){
       card.appendChild(house);
 
       container.appendChild(card);
-
-      // boton para volver a buscar
-      const searchAgainButton = document.createElement('button');
-      searchAgainButton.textContent = 'Buscar de nuevo';
-      card.appendChild(searchAgainButton);
-      searchAgainButton.addEventListener('click', function() {
+      
+      // Limpiar tarjeta cada vez que hace busqueda
+      form.addEventListener('click', function() {
           container.innerHTML = "";
           container.appendChild(form);
       });
@@ -67,13 +63,7 @@ if(document.querySelector('.character_card')){
         card.appendChild(addToFavoritesButton);
       }
       addToFavoritesButton.addEventListener('click', function() {
-          const user = firebase.auth().currentUser.uid;
-      if (user) {
-          const userId = user.uid;
           addCharacterToFavorites(findCharacter);
-      } else {
-            console.log('User not found');
-      }
 });
       
     } else {
@@ -116,9 +106,10 @@ signForm.addEventListener('submit', function (event) {
       const user = userCredential.user;
       const userId = user.uid; 
 
-  firebase.firestore().collection('usuarios').doc(userId).set({
-  email: email,
-  characters: []
+  firebase.firestore().collection('usuarios').doc(userId).set(
+  {
+    email: email,
+    characters: []
   })
   .then(() => {
     console.log('Datos guardados en Firestore');
@@ -215,44 +206,27 @@ googleSignInButton.addEventListener('click', function() {
 });
 };
 
-// Guardar el personaje en la colección de favoritos de Firestore
+// Funcion para añadir a Firestore personajes Favoritos
 function addCharacterToFavorites(character) {
-  if (userId) {
-    db.collection('usuarios')
-      .doc(userId)
-      .update({
-        favoritos: firebase.firestore.FieldValue.arrayUnion(character)
-      })
-      .then(() => {
-        console.log('Personaje agregado a favoritos');
-      })
-      .catch((error) => {
-        console.log('Error al agregar personaje a favoritos:', error);
-      });
-  }
-}
 
-// Agregar coleccion favoritos a Firestore y guardar los personajes
-function getFavoriteCharacters() {
-  if (userId) {
-    return db
-      .collection('usuarios')
-      .doc(userId)
-      .get()
-      .then((doc) => {
-        if (doc.exists) {
-          const userData = doc.data();
-          if (userData && userData.favoritos) {
-            return userData.favoritos;
-          }
-        }
-        return [];
-      })
-      .catch((error) => {
-        console.log('Error al obtener personajes favoritos:', error);
-      });
+  const user = firebase.auth().currentUser;
+  
+  if (user) {
+    const userId = user.uid;
+
+    const userRef = db.collection('usuarios').doc(userId);
+
+    userRef.update({
+      characters: firebase.firestore.FieldValue.arrayUnion(character)
+    })
+    .then(() => {
+      console.log('Personaje agregado a favoritos');
+    })
+    .catch((error) => {
+      console.log('Error al agregar personaje a favoritos:', error);
+    });
   } else {
-    return Promise.resolve([]); // Usuario no autenticado, retornar un array vacío
+    console.log('Usuario no encontrado');
   }
 }
 
