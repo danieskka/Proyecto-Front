@@ -168,7 +168,7 @@ logoutButton.addEventListener('click', function() {
   firebase.auth().signOut()
     .then(() => {
       console.log('Usuario desconectado');
-      window.location.href = "index.html"; // Redirige a página de inicio de sesión
+      window.location.href = "index.html";
     })
     .catch((error) => {
       console.log('Error al cerrar sesión:', error);
@@ -209,6 +209,8 @@ googleSignInButton.addEventListener('click', function() {
 // Funcion para añadir a Firestore personajes Favoritos
 function addCharacterToFavorites(character) {
 
+  const {name, image, actor, patronus} = character;
+
   const user = firebase.auth().currentUser;
   
   if (user) {
@@ -217,7 +219,7 @@ function addCharacterToFavorites(character) {
     const userRef = db.collection('usuarios').doc(userId);
 
     userRef.update({
-      characters: firebase.firestore.FieldValue.arrayUnion(character)
+      characters: firebase.firestore.FieldValue.arrayUnion({name, image, actor, patronus})
     })
     .then(() => {
       console.log('Personaje agregado a favoritos');
@@ -230,8 +232,58 @@ function addCharacterToFavorites(character) {
   }
 }
 
-//Leaflet Map
+// Pintar tarjetas de favoritos
+// Obtén la referencia al contenedor en el DOM donde mostrarás las tarjetas
+if (document.getElementById('favoritesContainer')) {
+const container = document.getElementById('favoritesContainer');
 
+// Obtén el usuario actual
+const user = firebase.auth().currentUser;
+
+firebase.auth().onAuthStateChanged(async function(user) {
+if (user) {
+  const userId = user.uid;
+
+  // Obtén la referencia al documento del usuario en Firestore
+  const userRef = db.collection('usuarios').doc(userId);
+
+  // Consulta el documento del usuario
+  userRef.get()
+    .then((doc) => {
+      if (doc.exists) {
+        // Obtiene el array de personajes favoritos del documento
+        const favorites = doc.data().characters;
+
+        favorites.forEach((favorite) => {
+         
+          const card = document.createElement('div');
+          card.classList.add('character_card');
+ 
+          const image = document.createElement('img');
+          image.src = favorite.image;
+
+          const name = document.createElement('h2');
+          name.textContent = favorite.name;
+
+          card.appendChild(image);
+          card.appendChild(name);
+
+          container.appendChild(card);
+        });
+      } else {
+        console.log('Documento de usuario no encontrado');
+      }
+    })
+    .catch((error) => {
+      console.log('Error al obtener los personajes favoritos:', error);
+    });
+} else {
+  console.log('Usuario no encontrado');
+};
+});
+};
+
+//Leaflet Map
 if (window.location.pathname.includes("information.html") && "geolocation" in navigator) {
 
   navigator.geolocation.getCurrentPosition(position => {
