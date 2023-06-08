@@ -5,58 +5,43 @@
   font-family: 'Secular One', sans-serif;
 }
 
-body {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  min-height: 100vh;
-  margin: 0;
-  padding: 0;
-  font-family: Arial, sans-serif;
-  background-color: #f0f0f0;
-  background-image: url("https://images.ctfassets.net/usf1vwtuqyxm/71J6YPxNauhFABbjHpGluJ/631bd6980b0a430d5b476ef331abb2b5/release_1_hogwarts.png");
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-}
-
 h1 {
   font-family: 'Permanent Marker', cursive;
+  color: white;
 }
 
 header {
   text-align: center;
-  margin-top: 20px;
-  background-color: #4caf50a3;
   padding: 10px;
+}
+
+header img {
+  max-width: 100%;
+  height: auto;
 }
 
 footer {
   text-align: center;
   margin-bottom: 20px;
-  background-color: #4CAF50;
+  background-color: #d2e3fcc9;
   color: white;
   padding: 10px;
 }
 
-
 main {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
   margin-bottom: 20px;
   flex-grow: 1;
 }
 
 form {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 20px;
-  background-color: #f5f4b3c4;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    /* background-color: #f44280; */
+    /* background-image: url(https://i.imgur.com/aA4VJAc.png); */
+    color: #ffaa00;
 }
 
 form div {
@@ -75,18 +60,16 @@ input {
 
 button {
   padding: 10px;
-  background-color: #4CAF50;
+  background-color: #5f6368;
   color: white;
   border: none;
   cursor: pointer;
+  font-weight: lighter;
+  margin-top: 20px;
 }
 
 button[type="submit"] {
   margin-top: 10px;
-}
-
-footer {
-  text-align: center;
 }
 
 footer nav {
@@ -99,6 +82,60 @@ footer nav a {
   margin: 0 5px;
   text-decoration: none;
   color: #000700;
+}
+
+#map_title {
+  color:black;
+}
+
+.content_body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f0f0f0;
+  background-image: url("https://images.ctfassets.net/usf1vwtuqyxm/71J6YPxNauhFABbjHpGluJ/631bd6980b0a430d5b476ef331abb2b5/release_1_hogwarts.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+#main_body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f0f0f0;
+  background-image: url(https://rare-gallery.com/uploads/posts/1142416-women-movies-wizard-Harry-Potter-Emma-Watson-Hermione-Granger-darkness-screenshot-computer-wallpaper-fictional-character-special-effects.jpg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+
+
+#results_body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f0f0f0;
+  background-image: url(https://t4.ftcdn.net/jpg/03/15/21/23/360_F_315212386_0d6tLTU3dzclZSIXyfc1s8i09hP3df5U.jpg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 #character_cont {
@@ -119,14 +156,49 @@ footer nav a {
     flex: 0 0 auto;
     width: 300px;
     padding: 20px;
-    background-color: #f0f0f0;
-    border: 1px solid #ccc;
+    background-image: url(https://ideastoknow.com/wp-content/uploads/2022/01/wp7796308-harry-potter-hd-mobile-wallpapers-e1643183070136.jpg);
+    border: 5px solid #d2e3fc;
     border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    color: #fff;
 }
  
 .character_card img {
     max-width: 100%;
     height: auto;
+}
+
+#googleSignInButton {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  color: #757575;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  margin-top: 20px;
+}
+
+#googleSignInButton img {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+}
+
+#map {
+  height: 500px;
+  background-color: transparent;
+}
+
+.mapImg {
+  margin: 0, auto;
+  width: 30px;
+  padding: 10px 17px;
 }
 
 /* Media queries */
