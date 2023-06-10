@@ -1,3 +1,6 @@
+Aqui esta el despliegue en GitHub Pages para que podais ver el resultado:
+https://danieskka.github.io/Proyecto-Front/index.html
+
 HARRY POTTER FAN WEBSITE!
 
 HOLA PARA TODOS LOS FANS DE HARRY POTTER!, EN PRIMER LUGAR QUERIA AGRADECER QUE HAYAIS VENIDO A VER MI PROYECTO, VAMOS A IR PASO A PASO EXPLICANDO COMO FUNCIONA MI APLICACIÓN:
