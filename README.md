@@ -8,4 +8,4 @@ HOLA PARA TODOS LOS FANS DE HARRY POTTER!, EN PRIMER LUGAR QUERIA AGRADECER QUE 
 
 3. En esta página tenemos un mapa con una serie de marcadores en diferentes zonas, son puntos de interés para fans de harry potter por si te interesa hacer visitas relacionadas a esta saga, como puedes ver la mayoría están en London, Reino Unido ya que la saga proviene de aquí
 
-4. Esta página es para usuarios registrados y login completado, porque aquí se les mostrará aquellos personajes que han seleccionado como favoritos y les vendrá información adiccional de éstos la cual no venia cuando hiciste la primera busqueda // tenemos que darle algun beneficio a la gente que si decide registrarse con nosotros :D
+4. Esta página es para usuarios registrados y login completado, porque aquí se les mostrará aquellos personajes que han seleccionado como favoritos y les vendrá información adiccional de éstos la cual no venia cuando hiciste la primera busqueda // tenemos que darle algun beneficio a la gente que si decide registrarse con nosotros :Dvar MongoClient = require

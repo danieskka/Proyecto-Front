@@ -35,7 +35,7 @@ if(document.querySelector('.character_card')){
       const species = document.createElement('p');
       const ancestry = document.createElement('p');
       const house = document.createElement('p');
-
+      
       image.src = findCharacter.image;
       name.textContent = findCharacter.name;
       species.textContent = `Species: ${findCharacter.species}`;
@@ -152,8 +152,7 @@ firebase.auth().signInWithEmailAndPassword(email, password)
 
 firebase.auth().onAuthStateChanged(function (user) {
   if (user) {
-    window.location.href = "main.html"
-    console.log('Usuario logueado:', user.email);
+    // window.location.href = "main.html"
   } else {
     console.log('Usuario no logueado');
   }
@@ -233,18 +232,16 @@ function addCharacterToFavorites(character) {
 }
 
 // Pintar tarjetas de favoritos
-// Obtén la referencia al contenedor en el DOM donde mostrarás las tarjetas
 if (document.getElementById('favoritesContainer')) {
 const container = document.getElementById('favoritesContainer');
 
-// Obtén el usuario actual
 const user = firebase.auth().currentUser;
 
 firebase.auth().onAuthStateChanged(async function(user) {
 if (user) {
   const userId = user.uid;
 
-  // Obtén la referencia al documento del usuario en Firestore
+  // referencia al documento del usuario en Firestore
   const userRef = db.collection('usuarios').doc(userId);
 
   // Consulta el documento del usuario
@@ -265,8 +262,16 @@ if (user) {
           const name = document.createElement('h2');
           name.textContent = favorite.name;
 
+          const actor = document.createElement('h3');
+          actor.textContent = favorite.actor;
+
+          const patronus = document.createElement('h4');
+          patronus.textContent = favorite.patronus;
+
           card.appendChild(image);
           card.appendChild(name);
+          card.appendChild(actor);
+          card.appendChild(patronus);
 
           container.appendChild(card);
         });

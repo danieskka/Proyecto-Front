@@ -1,0 +1,15 @@
+{
+  "name": "proyecto-front",
+  "version": "1.0.0",
+  "description": "HARRY POTTER FAN WEBSITE!",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Daniel Escalera",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2",
+    "helmet": "^7.0.0"
+  }
+}
