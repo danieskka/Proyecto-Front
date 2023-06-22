@@ -338,3 +338,22 @@ if (window.location.pathname.includes("information.html") && "geolocation" in na
 } else {
 console.warn("Tu navegador no soporta Geolocalización!! ");
 }
+
+// REGEX SIGN UP
+function validateForm() {
+  var emailRegex = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  var passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$/;
+  
+  var email = document.getElementById("email").value;
+  var password = document.getElementById("password").value;
+  
+  if (!emailRegex.test(email)) {
+    alert("Por favor, introduce un email válido.");
+    return false;
+  }
+  
+  if (!passwordRegex.test(password)) {
+    alert("La contraseña debe contener al menos 8 caracteres, incluyendo al menos un dígito, una letra minúscula, una letra mayúscula y un carácter especial.");
+    return false;
+  }
+}

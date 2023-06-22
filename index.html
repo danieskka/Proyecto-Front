@@ -17,16 +17,16 @@
     <main>
 
         <section>
-            <form id="signForm">
+            <form id="signForm" onsubmit="return validateForm()">
                 <div>
-                    <label>Introduzca un email valido</label>
-                    <input type="text">
+                    <label for="email">Introduzca un email valido</label>
+                    <input type="text" id="email" name="email">
                 </div>
                 <div>
-                    <label>Introduzca una contraseña valida</label>
-                    <input type="password">
+                    <label for="password">Introduzca una contraseña valida</label>
+                    <input type="password" id="password" name="password">
                 </div>
-                <button type="submit"> Click aqui para Registrarse</button>
+                <button type="submit" value="Registrarse"> Click aqui para Registrarse</button>
                 
             </form>
         </section>
